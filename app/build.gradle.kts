@@ -26,6 +26,11 @@ android {
         sourceCompatibility(JavaVersion.VERSION_1_8)
         targetCompatibility(JavaVersion.VERSION_1_8)
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -43,4 +48,9 @@ dependencies {
 
     //https://github.com/ReactiveX/RxJava
     implementation("io.reactivex.rxjava3:rxjava:3.1.5")
+
+    //https://github.com/square/retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 }
