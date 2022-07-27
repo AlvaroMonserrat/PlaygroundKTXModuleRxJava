@@ -2,20 +2,11 @@ package com.rrat.playgroundktxmodulerxjava.playground
 
 import io.reactivex.rxjava3.core.Observable
 
-val mUserListProfile = mutableListOf<UserProfile>(
-    UserProfile(1, "demo1", 15, ""),
-    UserProfile(2, "demo2", 18, ""),
-    UserProfile(3, "demo3", 20, ""),
-    UserProfile(4, "demo4", 21, ""),
-    UserProfile(5, "demo5", 23, ""),
-    UserProfile(6, "demo6", 22, ""),
-)
-
 
 fun main()
 {
     println("main starts")
-    val disposable = mergeOperator()
+    val disposable = concatOperator()
         .subscribe(
             {
                 if (it::class.java.isAssignableFrom(UserProfile::class.java))
@@ -38,13 +29,18 @@ fun main()
     disposable.dispose()
 }
 
-fun getUser(): Observable<User> {
-    return Observable.fromIterable(mUserList)
-}
-fun getUserProfile(): Observable<UserProfile> {
-    return Observable.fromIterable(mUserListProfile)
+fun getNum1To100(): Observable<Int>
+{
+    return Observable.range(1, 100)
 }
 
-fun mergeOperator(): Observable<Any>{
-    return Observable.merge(getUser(), getUserProfile())
+fun getNum100To150(): Observable<Int>
+{
+    return Observable.range(101, 50)
+}
+
+
+fun concatOperator(): Observable<Int> {
+    //return Observable.concat(getNum1To100(), getNum100To150())
+    return getNum1To100().concatWith(getNum100To150())
 }

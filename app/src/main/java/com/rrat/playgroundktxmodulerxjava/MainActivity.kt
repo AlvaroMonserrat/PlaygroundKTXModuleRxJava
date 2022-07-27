@@ -1,57 +1,44 @@
 package com.rrat.playgroundktxmodulerxjava
 
-import android.graphics.Point
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.rrat.playgroundktxmodulerxjava.databinding.ActivityMainBinding
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
-import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private var disposable: Disposable? = null
+
+    private var mainViewModel: MainViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        disposable = intervalOperator().subscribe(
-            {
-                Log.i(this.localClassName,"onNext: $it")
-                runOnUiThread{
-                    binding.tvTest.text = it.toString()
-                }
-            },
-            {
-                Log.i(this.localClassName,"onError: $it")
-            },
-            {
-                val point = Point(10, 10)
-                Log.i(this.localClassName,"onCompleted ${point}")
-            }
-        )
+        Log.i("TEST","ON CREATE MAIN ACTIVITY")
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
+        binding.btnAdd.setOnClickListener {
+            val intent = Intent(this, PlayActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("TEST","ON RESUME MAIN ACTIVITY")
     }
 
     override fun onDestroy() {
-        disposable?.dispose()
+        Log.i("TEST","ON DESTROY MAIN ACTIVITY")
         super.onDestroy()
     }
 
-    private fun timerOperator(): Observable<Long> {
-        return Observable.timer(5, TimeUnit.SECONDS)
-    }
-
-    private fun intervalOperator(): Observable<Long> {
-        return Observable.interval(1, 1, TimeUnit.SECONDS).takeWhile{
-                value -> value <= 10
-        }
-    }
 }
 
 
