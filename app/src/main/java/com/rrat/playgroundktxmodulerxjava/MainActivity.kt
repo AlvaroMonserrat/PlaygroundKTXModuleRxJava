@@ -12,7 +12,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-
     private var mainViewModel: MainViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +26,18 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, PlayActivity::class.java)
             startActivity(intent)
         }
+
+        mainViewModel?.liveData?.observe(this)
+        {
+            binding.tvTest.text = it.toString()
+        }
+
+        binding.btnLiveData.setOnClickListener {
+            mainViewModel?.setLiveData(50)
+        }
+
+        mainViewModel?.getSpecialNumber()
+
     }
 
     override fun onResume() {

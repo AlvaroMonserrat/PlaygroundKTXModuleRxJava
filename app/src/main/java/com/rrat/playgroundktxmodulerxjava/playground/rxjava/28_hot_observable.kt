@@ -3,7 +3,6 @@ package com.rrat.playgroundktxmodulerxjava.playground
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.observables.ConnectableObservable
-import java.util.*
 
 
 fun main()

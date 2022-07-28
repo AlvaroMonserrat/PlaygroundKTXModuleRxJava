@@ -1,11 +1,10 @@
-package com.rrat.playgroundktxmodulerxjava.playground
+package com.rrat.playgroundktxmodulerxjava.playground.rxjava
 
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path

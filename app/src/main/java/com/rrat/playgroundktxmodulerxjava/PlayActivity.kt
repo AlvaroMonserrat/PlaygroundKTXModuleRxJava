@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.lifecycle.lifecycleScope
 import com.rrat.playgroundktxmodulerxjava.databinding.ActivityPlayBinding
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.collectLatest
 
 class PlayActivity : AppCompatActivity() {
 
@@ -28,14 +30,27 @@ class PlayActivity : AppCompatActivity() {
 
         playViewModel = ViewModelProvider(this)[PlayViewModel::class.java]
 
-        if(playViewModel?.backgroundLiveData?.value == null)
+        /*if(playViewModel?.backgroundLiveData?.value == null)
         {
             playViewModel?.getDataFromRxJava()
         }
+        */
+     /*   if(playViewModel?.backgroundStateFlow?.value == null)
+        {
+            playViewModel?.getDataFromCoroutine()
+        }*/
+        playViewModel?.getDataFromCoroutine()
 
+        lifecycleScope.launchWhenStarted {
+            playViewModel?.backgroundStateFlow?.collect {
+                    value -> binding.tvTest.text = value.toString()
+            }
+        }
+/*
         playViewModel?.backgroundLiveData?.observe(this){
             value -> binding.tvTest.text = value.toString()
         }
+*/
 
 
     }

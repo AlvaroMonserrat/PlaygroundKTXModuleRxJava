@@ -1,4 +1,4 @@
-package com.rrat.playgroundktxmodulerxjava.playground
+package com.rrat.playgroundktxmodulerxjava.playground.rxjava
 
 
 class Parchment(private var x: Int = 0, private var y: Int = 0){

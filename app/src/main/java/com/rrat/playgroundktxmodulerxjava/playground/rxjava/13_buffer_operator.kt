@@ -1,7 +1,6 @@
 package com.rrat.playgroundktxmodulerxjava.playground
 
 import io.reactivex.rxjava3.core.Observable
-import java.util.concurrent.TimeUnit
 
 val mUserListBuffer = mutableListOf<User>(
     User(1, "demo1", 15),

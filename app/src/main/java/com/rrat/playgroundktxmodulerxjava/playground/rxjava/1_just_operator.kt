@@ -1,4 +1,4 @@
-package com.rrat.playgroundktxmodulerxjava.playground
+package com.rrat.playgroundktxmodulerxjava.playground.rxjava
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer

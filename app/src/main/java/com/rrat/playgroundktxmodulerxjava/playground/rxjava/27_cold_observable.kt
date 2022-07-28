@@ -1,9 +1,6 @@
 package com.rrat.playgroundktxmodulerxjava.playground
 
-import io.reactivex.rxjava3.core.Flowable.fromIterable
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Observable.fromIterable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
 
