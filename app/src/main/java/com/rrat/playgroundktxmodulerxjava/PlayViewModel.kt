@@ -1,10 +1,7 @@
 package com.rrat.playgroundktxmodulerxjava
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -23,8 +20,9 @@ class PlayViewModel: ViewModel() {
     private val _backgroundLiveData = MutableLiveData<Int>()
     val backgroundLiveData: LiveData<Int> = _backgroundLiveData
 
-    private val _backgroundStateFlow = MutableStateFlow<Int>(0)
+    private val _backgroundStateFlow = MutableStateFlow(0)
     val backgroundStateFlow: StateFlow<Int> = _backgroundStateFlow.asStateFlow()
+
 
     fun getDataFromRxJava(){
         compositeDisposable.add(createObservableRange()

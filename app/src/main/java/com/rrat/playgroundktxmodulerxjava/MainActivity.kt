@@ -27,14 +27,27 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        /*------LiveData MutableData------*/
         mainViewModel?.liveData?.observe(this)
         {
-            binding.tvTest.text = it.toString()
+            binding.tvLiveData.text = it.toString()
         }
 
         binding.btnLiveData.setOnClickListener {
             mainViewModel?.setLiveData(50)
         }
+        /*---------------------------------*/
+
+
+        /*------LiveData one-shot------*/
+        binding.btnLiveDataOneShot.setOnClickListener {
+            mainViewModel?.getOneShotLiveData()
+            mainViewModel?.resultLiveData?.observe(this){
+                binding.tvLiveDataOneShot.text = it
+            }
+        }
+        /*Alternativa: solucion rotacion pantalla*/
+        binding.tvLiveDataOneShot.text = mainViewModel?.resultLiveData?.value
 
         mainViewModel?.getSpecialNumber()
 

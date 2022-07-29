@@ -1,10 +1,7 @@
 package com.rrat.playgroundktxmodulerxjava
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -12,6 +9,23 @@ class MainViewModel: ViewModel() {
 
     private val _livaData: MutableLiveData<Int> = MutableLiveData(0)
     val liveData: LiveData<Int> = _livaData
+
+    var resultLiveData: LiveData<String>? = MutableLiveData()
+
+    fun getOneShotLiveData()
+    {
+        resultLiveData = liveData {
+            val data = taskInBackground()
+            emit(data)
+        }
+    }
+
+    private suspend fun taskInBackground() : String
+    {
+        delay(2000)
+        return "LiveData one-shot"
+    }
+
 
     fun setLiveData(newValue: Int)
     {

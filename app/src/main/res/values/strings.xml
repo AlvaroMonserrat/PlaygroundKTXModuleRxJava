@@ -11,4 +11,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="plus">Plus</string>
     <string name="livedata">LiveData</string>
+    <string name="livedata_one_shot">LiveData One Shot</string>
 </resources>
