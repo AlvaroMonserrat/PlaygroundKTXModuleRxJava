@@ -29,9 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         liveDataPlayGround()
 
-//        val engine = Engine()
-//        val car = Car(engine, 20.00)
-//        car.turnOn()
     }
 
     private fun liveDataPlayGround()

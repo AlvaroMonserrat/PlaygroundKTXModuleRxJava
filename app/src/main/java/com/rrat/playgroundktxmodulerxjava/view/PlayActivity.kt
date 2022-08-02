@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.rrat.playgroundktxmodulerxjava.viewmodel.PlayViewModel
 import com.rrat.playgroundktxmodulerxjava.databinding.ActivityPlayBinding
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -24,8 +25,8 @@ class PlayActivity : AppCompatActivity() {
         Log.i("TEST","ON CREATE PLAY ACTIVITY")
 
         playViewModel = ViewModelProvider(this)[PlayViewModel::class.java]
-
         observerChannelFlow()
+
     }
 
     private fun observerStateFlow()
