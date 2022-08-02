@@ -1,18 +1,13 @@
-package com.rrat.playgroundktxmodulerxjava
+package com.rrat.playgroundktxmodulerxjava.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
+import com.rrat.playgroundktxmodulerxjava.viewmodel.PlayViewModel
 import com.rrat.playgroundktxmodulerxjava.databinding.ActivityPlayBinding
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class PlayActivity : AppCompatActivity() {
 
@@ -30,30 +25,62 @@ class PlayActivity : AppCompatActivity() {
 
         playViewModel = ViewModelProvider(this)[PlayViewModel::class.java]
 
-        /*if(playViewModel?.backgroundLiveData?.value == null)
-        {
-            playViewModel?.getDataFromRxJava()
-        }
-        */
-     /*   if(playViewModel?.backgroundStateFlow?.value == null)
-        {
-            playViewModel?.getDataFromCoroutine()
-        }*/
-        playViewModel?.getDataFromCoroutine()
+        observerChannelFlow()
+    }
+
+    private fun observerStateFlow()
+    {
+        //if(playViewModel?.backgroundStateFlow?.value == null)
+        //{
+        playViewModel?.getDataFromCoroutineStateFlow()
+        //}
 
         lifecycleScope.launchWhenStarted {
+
             playViewModel?.backgroundStateFlow?.collect {
                     value -> binding.tvTest.text = value.toString()
             }
         }
-/*
-        playViewModel?.backgroundLiveData?.observe(this){
-            value -> binding.tvTest.text = value.toString()
-        }
-*/
-
-
     }
+
+    private fun observerSharedFlow()
+    {
+        playViewModel?.getDataFromCoroutineSharedFlow()
+
+        lifecycleScope.launchWhenStarted {
+            playViewModel?.backgroundSharedFlow?.collect { value ->
+                binding.tvTest.text = value.toString()
+            }
+        }
+    }
+
+    private fun observerChannelFlow()
+    {
+        playViewModel?.getDataFromCoroutineChannel()
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED)
+            {
+                Log.i("TEST","CHANNEL STARTS TO BE OBSERVED")
+                playViewModel?.flowChannel?.collectLatest { value ->
+                    binding.tvTest.text = value.toString()
+                }
+            }
+        }
+    }
+
+    private fun observerFromRxJava()
+    {
+        if(playViewModel?.backgroundLiveData?.value == null)
+        {
+            playViewModel?.getDataFromRxJava()
+        }
+
+        playViewModel?.backgroundLiveData?.observe(this){
+                value -> binding.tvTest.text = value.toString()
+        }
+    }
+
 
     private fun runRxJvTest()
     {
@@ -78,6 +105,11 @@ class PlayActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.i("TEST","ON RESUME PLAY ACTIVITY")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i("TEST","ON STOP PLAY ACTIVITY")
     }
 
     override fun onDestroy() {

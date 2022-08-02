@@ -12,4 +12,5 @@
     <string name="plus">Plus</string>
     <string name="livedata">LiveData</string>
     <string name="livedata_one_shot">LiveData One Shot</string>
+    <string name="playlist">Playlists</string>
 </resources>

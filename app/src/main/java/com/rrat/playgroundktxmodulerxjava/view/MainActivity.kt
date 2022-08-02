@@ -1,12 +1,12 @@
-package com.rrat.playgroundktxmodulerxjava
+package com.rrat.playgroundktxmodulerxjava.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.rrat.playgroundktxmodulerxjava.viewmodel.MainViewModel
 import com.rrat.playgroundktxmodulerxjava.databinding.ActivityMainBinding
-import io.reactivex.rxjava3.disposables.Disposable
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +27,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        liveDataPlayGround()
+
+//        val engine = Engine()
+//        val car = Car(engine, 20.00)
+//        car.turnOn()
+    }
+
+    private fun liveDataPlayGround()
+    {
         /*------LiveData MutableData------*/
         mainViewModel?.liveData?.observe(this)
         {
@@ -37,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             mainViewModel?.setLiveData(50)
         }
         /*---------------------------------*/
-
 
         /*------LiveData one-shot------*/
         binding.btnLiveDataOneShot.setOnClickListener {
@@ -50,8 +58,8 @@ class MainActivity : AppCompatActivity() {
         binding.tvLiveDataOneShot.text = mainViewModel?.resultLiveData?.value
 
         mainViewModel?.getSpecialNumber()
-
     }
+
 
     override fun onResume() {
         super.onResume()

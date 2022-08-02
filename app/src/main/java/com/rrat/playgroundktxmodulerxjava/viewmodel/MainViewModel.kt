@@ -1,4 +1,4 @@
-package com.rrat.playgroundktxmodulerxjava
+package com.rrat.playgroundktxmodulerxjava.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
