@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rrat.playgroundktxmodulerxjava.R
 import com.rrat.playgroundktxmodulerxjava.data.Playlist
+import com.rrat.playgroundktxmodulerxjava.data.repository.PlaylistRepository
 import com.rrat.playgroundktxmodulerxjava.viewmodel.PlaylistViewModel
 import com.rrat.playgroundktxmodulerxjava.viewmodel.PlaylistViewModelFactory
 
@@ -21,6 +22,7 @@ class PlaylistFragment : Fragment() {
 
     private lateinit var viewModel: PlaylistViewModel
     private lateinit var viewModelFactory: PlaylistViewModelFactory
+    private val repository = PlaylistRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +35,13 @@ class PlaylistFragment : Fragment() {
         viewModel.playlists.observe(this as LifecycleOwner)
         {
             playlists->
+            if(playlists.getOrNull() != null)
+            {
+                setupList(view, playlists.getOrNull()!!)
+            }else{
+                //TODO
+            }
 
-            setupList(view, playlists)
         }
 
         return view
@@ -51,7 +58,7 @@ class PlaylistFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModelFactory = PlaylistViewModelFactory()
+        viewModelFactory = PlaylistViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[PlaylistViewModel::class.java]
     }
 

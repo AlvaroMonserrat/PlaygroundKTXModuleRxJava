@@ -93,5 +93,8 @@ dependencies {
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
 
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("android.arch.core:core-testing:1.1.1")
+
 
 }
