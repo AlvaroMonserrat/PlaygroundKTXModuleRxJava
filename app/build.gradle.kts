@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
+
 }
 
 android {
@@ -95,6 +97,14 @@ dependencies {
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("android.arch.core:core-testing:1.1.1")
+
+    implementation("co.early.fore:fore-kt-android:1.5.14")
+
+
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.42")
+    kapt("com.google.dagger:hilt-compiler:2.42")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
 
 }

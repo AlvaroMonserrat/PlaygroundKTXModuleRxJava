@@ -6,9 +6,12 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.rrat.playgroundktxmodulerxjava.viewmodel.PlayViewModel
 import com.rrat.playgroundktxmodulerxjava.databinding.ActivityPlayBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
+
 
 class PlayActivity : AppCompatActivity() {
 
