@@ -27,6 +27,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnPlaylistsActivity.setOnClickListener {
+            val intent = Intent(this, PlayListActivity::class.java)
+            startActivity(intent)
+        }
+
         liveDataPlayGround()
 
     }

@@ -13,4 +13,5 @@
     <string name="livedata">LiveData</string>
     <string name="livedata_one_shot">LiveData One Shot</string>
     <string name="playlist">Playlists</string>
+    <string name="play_lists">Play lists</string>
 </resources>

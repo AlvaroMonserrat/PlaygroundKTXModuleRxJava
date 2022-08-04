@@ -53,21 +53,20 @@ class PlaylistFeature {
 
 
     fun nthChildOf(parentMatcher: Matcher<View>, childPosition: Int): Matcher<View> {
-        return object : TypeSafeMatcher<View>(){
-            override fun describeTo(description: Description?) {
-                description?.appendText("position $childPosition of parent")
+        return object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description) {
+                description.appendText("position $childPosition of parent ")
                 parentMatcher.describeTo(description)
             }
 
-            override fun matchesSafely(item: View?): Boolean {
-                if(item?.parent !is ViewGroup) return false
-                val parent = item.parent as ViewGroup
+            public override fun matchesSafely(view: View): Boolean {
+                if (view.parent !is ViewGroup) return false
+                val parent = view.parent as ViewGroup
 
-                return (parentMatcher.matches(parentMatcher)
+                return (parentMatcher.matches(parent)
                         && parent.childCount > childPosition
-                        && parent.getChildAt(childPosition) == item)
+                        && parent.getChildAt(childPosition) == view)
             }
-
         }
     }
 
