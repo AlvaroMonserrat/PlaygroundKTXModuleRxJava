@@ -18,13 +18,7 @@ class PlayListActivity : AppCompatActivity() {
         binding = ActivityPlayListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(savedInstanceState == null)
-        {
-            supportFragmentManager
-                .beginTransaction()
-                .add(binding.container.id, PlaylistFragment.newInstance())
-                .commit()
-        }
+
     }
 
 }

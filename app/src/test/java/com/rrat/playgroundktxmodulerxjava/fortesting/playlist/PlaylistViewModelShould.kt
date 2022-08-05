@@ -4,6 +4,7 @@ package com.rrat.playgroundktxmodulerxjava.fortesting.playlist
 import com.rrat.playgroundktxmodulerxjava.data.Playlist
 import com.rrat.playgroundktxmodulerxjava.data.repository.PlaylistRepository
 import com.rrat.playgroundktxmodulerxjava.fortesting.utils.BaseUnitTest
+import com.rrat.playgroundktxmodulerxjava.fortesting.utils.captureValues
 import com.rrat.playgroundktxmodulerxjava.fortesting.utils.getValueForTest
 import com.rrat.playgroundktxmodulerxjava.viewmodel.PlaylistViewModel
 import junit.framework.Assert.assertEquals
@@ -40,6 +41,39 @@ class PlaylistViewModelShould : BaseUnitTest(){
     fun emitErrorWhenReceiveErrorFromRepository()= runTest {
         val viewModel = mockFailureCase() //only real object
         assertEquals(exception, viewModel.playlists.getValueForTest()?.exceptionOrNull())
+    }
+
+    @Test
+    fun showSpinnerWhileLoading()= runTest {
+        val viewModel = mockSuccessfulCase()
+
+        viewModel.loader.captureValues{
+            viewModel.playlists.getValueForTest()
+
+            assertEquals(true, values[0])
+        }
+    }
+
+    @Test
+    fun hideLoaderAfterPlaylistsLoad()= runTest {
+        val viewModel = mockSuccessfulCase()
+
+        viewModel.loader.captureValues {
+            viewModel.playlists.getValueForTest()
+
+            assertEquals(false, values.last())
+        }
+    }
+
+    @Test
+    fun hideLoaderAfterError()= runTest {
+        val viewModel = mockFailureCase()
+
+        viewModel.loader.captureValues {
+            viewModel.playlists.getValueForTest()
+
+            assertEquals(false, values.last())
+        }
     }
 
     private fun mockSuccessfulCase(): PlaylistViewModel {

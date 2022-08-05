@@ -14,4 +14,6 @@
     <string name="livedata_one_shot">LiveData One Shot</string>
     <string name="playlist">Playlists</string>
     <string name="play_lists">Play lists</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

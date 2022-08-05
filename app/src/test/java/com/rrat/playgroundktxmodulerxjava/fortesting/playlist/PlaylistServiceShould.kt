@@ -1,6 +1,7 @@
 package com.rrat.playgroundktxmodulerxjava.fortesting.playlist
 
 import com.rrat.playgroundktxmodulerxjava.data.Playlist
+import com.rrat.playgroundktxmodulerxjava.data.PlaylistRaw
 import com.rrat.playgroundktxmodulerxjava.data.service.PlaylistAPI
 import com.rrat.playgroundktxmodulerxjava.data.service.PlaylistService
 import com.rrat.playgroundktxmodulerxjava.fortesting.utils.BaseUnitTest
@@ -17,7 +18,7 @@ class PlaylistServiceShould : BaseUnitTest(){
 
 
     private val api: PlaylistAPI = mock()
-    private val playlists: List<Playlist> = mock()
+    private val playlists: List<PlaylistRaw> = mock()
     private val exception = RuntimeException("Damn backend developers")
 
     @Test

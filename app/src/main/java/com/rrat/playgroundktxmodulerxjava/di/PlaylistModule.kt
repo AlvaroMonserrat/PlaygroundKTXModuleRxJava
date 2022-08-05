@@ -24,9 +24,10 @@ object PlaylistModule {
     @Provides
     @Singleton
     fun retrofit(): Retrofit{
+        val client = OkHttpClient()
         return Retrofit.Builder()
             .baseUrl("http://192.168.0.145:3000/")
-            .client(OkHttpClient())
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

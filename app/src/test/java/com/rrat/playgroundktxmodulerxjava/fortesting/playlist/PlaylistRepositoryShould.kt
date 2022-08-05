@@ -1,6 +1,8 @@
 package com.rrat.playgroundktxmodulerxjava.fortesting.playlist
 
 import com.rrat.playgroundktxmodulerxjava.data.Playlist
+import com.rrat.playgroundktxmodulerxjava.data.PlaylistRaw
+import com.rrat.playgroundktxmodulerxjava.data.model.PlaylistMapper
 import com.rrat.playgroundktxmodulerxjava.data.repository.PlaylistRepository
 import com.rrat.playgroundktxmodulerxjava.fortesting.utils.BaseUnitTest
 import com.rrat.playgroundktxmodulerxjava.data.service.PlaylistService
@@ -18,20 +20,22 @@ import java.lang.RuntimeException
 class PlaylistRepositoryShould : BaseUnitTest() {
 
     private val service: PlaylistService = mock()
+    private val mapper: PlaylistMapper = mock()
     private val playlists = mock<List<Playlist>>()
+    private val playlistRaw = mock<List<PlaylistRaw>>()
     private val exception = RuntimeException("Something went wrong")
 
     @Test
     fun getsPlaylistsFromService()= runTest{
 
-        val repository = PlaylistRepository(service)
+        val repository = mockSuccessfulCase()
 
         repository.getPlaylists()
         verify(service, times(1)).fetchPlaylists()
     }
 
     @Test
-    fun emitPlaylistsFromService()= runTest {
+    fun emitMappedPlaylistsFromService()= runTest {
         val repository = mockSuccessfulCase()
         assertEquals(playlists, repository.getPlaylists().first().getOrNull())
     }
@@ -42,14 +46,26 @@ class PlaylistRepositoryShould : BaseUnitTest() {
         assertEquals(exception, repository.getPlaylists().first().exceptionOrNull())
     }
 
+    @Test
+    fun delegateBusinessLogicToMapper()= runTest {
+        val repository: PlaylistRepository = mockSuccessfulCase()
+
+        repository.getPlaylists().first()
+
+        verify(mapper, times(1)).invoke(playlistRaw)
+    }
+
+
     private fun mockSuccessfulCase(): PlaylistRepository {
         whenever(service.fetchPlaylists()).thenReturn(
             flow {
-                emit(Result.success(playlists))
+                emit(Result.success(playlistRaw))
             }
         )
 
-        return PlaylistRepository(service)
+        whenever(mapper.invoke(playlistRaw)).thenReturn(playlists)
+
+        return PlaylistRepository(service, mapper)
     }
 
     private fun mockFailureCase(): PlaylistRepository {
@@ -59,6 +75,6 @@ class PlaylistRepositoryShould : BaseUnitTest() {
             }
         )
 
-        return PlaylistRepository(service)
+        return PlaylistRepository(service, mapper)
     }
 }
