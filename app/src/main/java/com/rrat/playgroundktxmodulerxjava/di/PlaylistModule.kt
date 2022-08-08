@@ -26,7 +26,7 @@ object PlaylistModule {
     fun retrofit(): Retrofit{
         val client = OkHttpClient()
         return Retrofit.Builder()
-            .baseUrl("http://192.168.0.145:3000/")
+            .baseUrl("http://192.168.0.186:3000/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

@@ -2,6 +2,7 @@ package com.rrat.playgroundktxmodulerxjava.data.repository
 
 
 import com.rrat.playgroundktxmodulerxjava.data.Playlist
+import com.rrat.playgroundktxmodulerxjava.data.PlaylistDetails
 import com.rrat.playgroundktxmodulerxjava.data.model.PlaylistMapper
 import com.rrat.playgroundktxmodulerxjava.data.service.PlaylistService
 import kotlinx.coroutines.flow.Flow
@@ -20,4 +21,8 @@ class PlaylistRepository @Inject constructor(
             else
                 Result.failure(it.exceptionOrNull()!!)
     }
+
+    fun getPlaylistDetails(id: String) : Flow<Result<PlaylistDetails>> =
+        service.fetchPlaylistDetails(id)
+
 }
